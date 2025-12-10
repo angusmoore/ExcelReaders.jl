@@ -8,15 +8,20 @@ jobs:
   test:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        julia-version: ['1.6', '1.7', '1.8', '1.9', '1.10', '1.11']
-        julia-arch: [x64, x86]
-        os: [ubuntu-latest, windows-latest, macos-13]
+        julia-version: ['1.10', '1.11', '1.12']
+        julia-arch: [x64, x86, aarch64]
+        os: [ubuntu-latest, windows-latest, macos-15]
         exclude:
-          - os: macos-13
+          - os: macos-15
             julia-arch: x86
-          - os: macos-13
-            julia-version: "1.4"
+          - os: macos-15
+            julia-arch: x64
+          - os: windows-latest
+            julia-arch: aarch64
+          - os: ubuntu-latest
+            julia-arch: aarch64
 
     steps:
       - uses: actions/checkout@v4
